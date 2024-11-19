@@ -1,0 +1,42 @@
+{
+  "name": "alert-monitor-root",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "prepare": "corepack enable && simple-git-hooks",
+    "postinstall": "pnpm compile",
+    "db:dev": "dotenv -e .env -- pnpm run \"/:watch$/\" ",
+    "dev": "dotenv -e .env -- pnpm run api:watch",
+    "api:watch": "dotenv -e .env -- pnpm -C api/alert-monitor-ui-api run dev",
+    "api:start": "dotenv -e .env -- pnpm -C api/alert-monitor-ui-api drizzle run dev",
+    "drizzle:watch": "pnpm -C drizzle run dev",
+    "compile": "pnpm -C drizzle run build",
+    "prebuild": "rimraf dist",
+    "test": "pnpm -C \"test\" run test",
+    "db:generate": "drizzle-kit generate --dialect=postgresql --schema=drizzle/dist/schema.js --out=./drizzle",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@nestjs/cli": "10.4.4",
+    "@nestjs/schematics": "10.1.4",
+    "dotenv-cli": "7.4.2",
+    "eslint": "^8.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "simple-git-hooks": "2.11.1",
+    "tsconfig-paths": "4.2.0",
+    "typescript": "~5.5.0"
+  },
+  "author": "Cenk Cetinkaya<mail@cenkcetinkaya.com>",
+  "license": "MIT",
+  "packageManager": "pnpm@9.12.1+sha1.7084e7df42ee1d221994c2c2599277a2a937f050"
+}
